@@ -137,30 +137,40 @@
                         </div>
                     </div>
                 </div>
-                <div style=" margin-left: 800px;" class="menu">
+                <div style=" margin-left: 830px;" class="menu">
                     <p style="color: gray;">{{ listProduct.length }} Items</p>
                 </div>
-                <div class="menu">
-                    <p>Sort by</p>
+                <div id="color-menu" class="menu">
+                    <p style="margin-left: 25px;">Sort by <span class="arrow"></span></p>
+                    <div id="color-dropdown" class="dropdown-content">
+                        <div class="dropdown-column">
+                            <ul style="font-size: 15px;">
+                                <li><a href="#">Sản phẩm mới</a></li>
+                                <li><a href="#">Giá từ thấp đến cao</a></li>
+                                <li><a href="#">Giá từ cao đến thấp</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div id="content-newbag-1" ng-init="LoadProduct()">
-                <div class="row" ng-repeat="row in currentPageProducts">
-                    <div class="newbag" data-id="{{product.MaSP}}" ng-repeat="product in row">
-                        <img class="img-newbag" id="anh-tui-sach-{{product.MaSP}}" ng-src="{{'https://localhost:44366/api/TuiXach/get-img/' + product.hinhAnh}}" />
+                <!-- Chia hàng với ng-repeat -->
+                <div class="row" ng-repeat="row in paginatedProducts()">
+                    <div class="newbag" ng-repeat="product in row" data-id="{{product.MaSP}}">
+                        <img class="img-newbag" ng-src="{{ getImageUrl(product.hinhAnh) }}" />
                         <h4 style="text-align: center;">{{product.tenSp}}</h4>
                         <p class="product-price">{{product.giaBan | number:0}}₫</p>
                     </div>
                 </div>
-            
-                <!-- Phần phân trang -->
-                <div class="pagination">
-                    <button ng-click="updatePage(page)" ng-repeat="page in [].constructor(numberOfPages()) track by $index">
-                        {{ $index + 1 }}
-                    </button>
-                </div>   
             </div>
-        </div>
+            <!-- Phân trang -->
+            <div class="pagination">
+                <button ng-repeat="page in [].constructor(totalPages()) track by $index"
+                        ng-class="{'active': currentPage === $index + 1}"
+                        ng-click="setPage($index + 1)">
+                    {{ $index + 1 }}
+                </button>
+            </div>
         <hr/> 
         <div id="footer">
             <br/>

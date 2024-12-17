@@ -243,7 +243,25 @@ app.controller('productCtrl', function($scope, $http,) {
     };
 
     
+    // phân trang
+    $scope.currentPage = 1;
+    $scope.itemsPerPage = 7;
 
+    $scope.paginatedProducts = function() {
+        let startIndex = ($scope.currentPage - 1) * $scope.itemsPerPage;
+        let endIndex = startIndex + $scope.itemsPerPage;
+        return $scope.listProduct.slice(startIndex, endIndex);
+    };
+
+    $scope.totalPages = function() {
+        return Math.ceil($scope.listProduct.length / $scope.itemsPerPage);
+    };
+
+    $scope.setPage = function(page) {
+        if (page >= 1 && page <= $scope.totalPages()) {
+            $scope.currentPage = page;
+        }
+    };
     
     // Lấy bảng màu từ API
     $scope.loadColor = function () {

@@ -126,7 +126,7 @@
     
     #content-right-admin h1 {
         font-size: 24px;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         color: #333;
         text-align: center;
     }
@@ -134,7 +134,8 @@
     .stats {
         display: flex;
         justify-content: space-around;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
+        margin-top: 20px;
     }
     
     .stat-item {
@@ -205,6 +206,7 @@
 .add {
     width: 30px;
     height: 30px;
+    background-color: #f8f9fa;
     }
 
 
@@ -346,6 +348,7 @@
         text-align: center;
         font-size: 14px;
         margin-top: 5px;
+ 
         
     }
     
@@ -356,6 +359,8 @@
         border: 1px solid #dee2e6;
         white-space: nowrap; 
     }
+    
+   
     
     .product-table tbody td {
         border: 1px solid #dee2e6;
@@ -403,6 +408,10 @@
     .product-table tbody td button.delete-btn {
         background-color: #dc3545;
         color: #fff;
+    }
+    .pagination-container-price{
+        text-align: center;
+        margin-top: 10px;
     }
     
 
@@ -489,27 +498,27 @@
 
 
 .trang-thai-dang-xu-ly {
-    color: blue !important;  
+    color: #0000ff !important;  
     font-weight: bold !important;
 }
 
 .trang-thai-dang-lay-hang {
-    color: orange !important; 
+    color: #ffa500 !important; 
     font-weight: bold !important; 
 }
 
 .trang-thai-cho-giao-hang {
-    color: green !important;  
+    color: #008000 !important;  
     font-weight: bold !important;  
 }
 
 .trang-thai-hoan-thanh {
-    color: purple !important; 
+    color: #800080 !important; 
     font-weight: bold !important;  
 }
 
 .trang-thai-da-huy {
-    color: red !important;  
+    color: #ff0000 !important;  
     font-weight: bold !important;  
 }
 

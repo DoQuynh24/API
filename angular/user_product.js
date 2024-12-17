@@ -8,10 +8,11 @@ app.controller('userProductCtrl', function ($scope, $http) {
     $scope.sizes = []; // Danh sách size
     
     $scope.chunkedProducts = []; // Mảng lưu trữ các nhóm sản phẩm theo từng trang
-    $scope.currentPage = 0; // Trang hiện tại
-    $scope.itemsPerPage = 12; // Tổng số sản phẩm trên một trang
+    $scope.currentPage = 1; // Trang hiện tại
+    $scope.itemsPerPage = 8; // Tổng số sản phẩm trên một trang
     $scope.productsPerRow = 4; // Số sản phẩm trên một dòng
     var current_url = "https://localhost:44366"; 
+
 
     // Hàm tạo URL ảnh
     $scope.getImageUrl = function (fileName) {
@@ -26,38 +27,48 @@ app.controller('userProductCtrl', function ($scope, $http) {
             $scope.listProduct = response.data;  
             console.log("Danh sách sản phẩm:", $scope.listProduct);
            
-         // Chia danh sách sản phẩm thành các nhóm 4 sản phẩm (mỗi nhóm cho một dòng)
-         $scope.chunkedProducts = chunkArray($scope.listProduct, $scope.productsPerRow);
-         $scope.updatePage($scope.currentPage);
+         // Chia nhỏ mảng sản phẩm theo hàng và trang
+         $scope.preparePaginatedProducts();
+
         });
     };
 
-    // Hàm chia mảng thành các nhóm
-    function chunkArray(array, chunkSize) {
-        let results = [];
-        for (let i = 0; i < array.length; i += chunkSize) {
-            results.push(array.slice(i, i + chunkSize));
+    // Chuẩn bị danh sách sản phẩm theo từng trang và từng hàng
+$scope.preparePaginatedProducts = function () {
+    let paginated = [];
+    let totalItems = $scope.listProduct.length;
+
+    // Chia nhỏ sản phẩm theo trang
+    for (let i = 0; i < totalItems; i += $scope.itemsPerPage) {
+        let pageProducts = $scope.listProduct.slice(i, i + $scope.itemsPerPage);
+
+        // Chia nhỏ mỗi trang thành các hàng (4 sản phẩm một hàng)
+        let rows = [];
+        for (let j = 0; j < pageProducts.length; j += $scope.productsPerRow) {
+            rows.push(pageProducts.slice(j, j + $scope.productsPerRow));
         }
-        return results;
+        paginated.push(rows);
     }
+    $scope.paginatedProductsList = paginated;
+};
 
-    // Hàm cập nhật các sản phẩm hiển thị trên trang hiện tại
-    $scope.updatePage = function(page) {
+// Hàm trả về danh sách sản phẩm của trang hiện tại
+$scope.paginatedProducts = function () {
+    return $scope.paginatedProductsList[$scope.currentPage - 1] || [];
+};
+
+// Hàm tính tổng số trang
+$scope.totalPages = function () {
+    return Math.ceil($scope.listProduct.length / $scope.itemsPerPage);
+};
+
+// Chuyển đến trang cụ thể
+$scope.setPage = function (page) {
+    if (page >= 1 && page <= $scope.totalPages()) {
         $scope.currentPage = page;
-        var start = page * $scope.itemsPerPage;
-        var end = start + $scope.itemsPerPage;
-        $scope.currentProducts = $scope.listProduct.slice(start, end);
+    }
+};
 
-        // Chia các sản phẩm hiển thị trên trang thành các nhóm 4 sản phẩm mỗi dòng
-        $scope.currentPageProducts = chunkArray($scope.currentProducts, $scope.productsPerRow);
-    };
-
-    // Hàm tính toán số trang cần hiển thị
-    $scope.numberOfPages = function() {
-        return Math.ceil($scope.listProduct.length / $scope.itemsPerPage);
-    };
-
-    
 
      // Lấy danh sách danh mục từ API
     $scope.loadCategories = function () {
