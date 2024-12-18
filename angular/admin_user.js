@@ -5,9 +5,8 @@ app.controller('userCtrl', function($scope, $http) {
     $scope.newUser = {};
     $scope.currentUser = {}; 
     $scope.isEditMode = false;
-    $scope.page = 1;
-    $scope.itemsPerPage = 10;
-    $scope.totalPages = 10;
+    $scope.currentPage = 1; 
+    $scope.itemsPerPage = 10; 
     $scope.searchQuery = { taikhoan: '', hoten: '', diachi: '' };
 
     // URL API
@@ -62,59 +61,27 @@ app.controller('userCtrl', function($scope, $http) {
             }
         }).then(function(response) {
             $scope.listUser = response.data.data;
-            $scope.totalPages = Math.ceil(response.data.total / $scope.itemsPerPage);
-            createPagination($scope.totalPages);  
             
         });
     };
 
-    // Hàm tạo phân trang (mũi tên)
-    function createPagination(totalPages) {
-        const pagination = document.querySelector('#pagination .pagination');
-      
-        pagination.innerHTML = ''; 
-
-        // Nút "Previous" với mũi tên
-        const prevItem = document.createElement('li');
-        prevItem.className = `page-item ${$scope.page === 1 ? 'disabled' : ''}`;
-        prevItem.innerHTML = `<a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>`;
-        prevItem.onclick = function(e) {
-            e.preventDefault();
-            if ($scope.page > 1) {
-                $scope.page--;
-                $scope.LoadUser(); 
-            }
-        };
-        pagination.appendChild(prevItem);
-
-        // Các nút số trang
-        for (let i = 1; i <= totalPages; i++) {
-            const pageItem = document.createElement('li');
-            pageItem.className = `page-item ${i === $scope.page ? 'active' : ''}`;
-            pageItem.innerHTML = `<a class="page-link" href="#">${i}</a>`;
-            pageItem.onclick = function(e) {
-                e.preventDefault();
-                $scope.page = i;
-                $scope.LoadUser();  // Gọi lại API khi chuyển trang
-            };
-            pagination.appendChild(pageItem);
+    $scope.paginatedHoaDon = function () {
+        let start = ($scope.currentPage - 1) * $scope.itemsPerPage;
+        let end = start + $scope.itemsPerPage;
+        return $scope.filteredHoaDon.slice(start, end);
+    };
+    
+    $scope.totalPages = function () {
+        return Math.ceil($scope.filteredHoaDon.length / $scope.itemsPerPage);
+    };
+    
+    $scope.setPage = function (page) {
+        if (page >= 1 && page <= $scope.totalPages()) {
+            $scope.currentPage = page;
         }
-
-        // Nút "Next" với mũi tên
-        const nextItem = document.createElement('li');
-        nextItem.className = `page-item ${$scope.page === totalPages ? 'disabled' : ''}`;
-        nextItem.innerHTML = `<a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>`;
-        nextItem.onclick = function(e) {
-            e.preventDefault();
-            if ($scope.page < totalPages) {
-                $scope.page++;
-                $scope.LoadUser();  // Gọi lại API khi chuyển trang
-            }
-        };
-        pagination.appendChild(nextItem);
-    }
-
-
+    };
+    
+   
      // Hàm đăng ký người dùng mới
      $scope.addUser = function () {
         

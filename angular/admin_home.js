@@ -14,6 +14,7 @@ app.controller('homeCtrl',function($scope, $http,)  {
     $scope.totalHoanThanh = 0; 
     $scope.totalDaHuy = 0;   
 
+
     var current_url = "https://localhost:44366"; 
 
     $scope.LoadProduct = function() {
@@ -146,7 +147,6 @@ function createHoaDonChart() {
                 x: {
                     title: {
                         display: true,
-                        size: 18,
                         text: 'Trạng thái hóa đơn'
                     },
                     ticks: {

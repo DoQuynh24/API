@@ -1,7 +1,7 @@
 
     var cartIcon = document.getElementById("name");
     cartIcon.addEventListener("click", function() {
-        window.location.href = "index.html";
+        window.location.href = "/user/index.html";
     });
 
 // Lấy các phần tử cần thiết

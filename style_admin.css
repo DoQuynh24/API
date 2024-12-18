@@ -145,6 +145,8 @@
         text-align: center;
         width: 150px;
         font-size: 14px;
+        cursor: pointer;
+   
     }
     
     .stat-item h3 {
@@ -597,3 +599,20 @@ table {
     .table td:nth-child(6) {
         width: 150px; 
     }
+    .pagination {
+        justify-content: center;
+        margin-top: 10px;
+      }
+      
+      .pagination button {
+        margin: 0 5px;
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+        cursor: pointer;
+      }
+      
+      .pagination button:hover {
+        background-color: #ddd;
+      }
+      

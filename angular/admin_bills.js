@@ -10,8 +10,31 @@ app.controller('billsCtrl', function($scope, $http, $timeout) {
     $scope.thanhTien = 0; // Thành tiền
     $scope.selectedStatus = 'Tất cả'; 
 
+    $scope.currentPage = 1; 
+    $scope.itemsPerPage = 10; 
+
     // URL API
     var current_url = "https://localhost:44366"; 
+
+    
+    $scope.paginatedHoaDon = function () {
+        let start = ($scope.currentPage - 1) * $scope.itemsPerPage;
+        let end = start + $scope.itemsPerPage;
+        return $scope.filteredHoaDon.slice(start, end);
+    };
+    
+    $scope.totalPages = function () {
+        return Math.ceil($scope.filteredHoaDon.length / $scope.itemsPerPage);
+    };
+    
+    $scope.setPage = function (page) {
+        if (page >= 1 && page <= $scope.totalPages()) {
+            $scope.currentPage = page;
+        }
+    };
+    
+
+
 
     // Hàm tính tổng tiền của các hóa đơn hoàn thành
     $scope.calculateTotalCompletedBills = function() {
@@ -23,40 +46,28 @@ app.controller('billsCtrl', function($scope, $http, $timeout) {
         });
     };
    // Tải danh sách hóa đơn
-    $scope.LoadHoaDon = function(trangThai) {
-        $scope.selectedStatus = trangThai; // Cập nhật trạng thái khi chọn
-        let url = current_url + '/api/HoaDon/get-all';
+   $scope.LoadHoaDon = function(trangThai) {
+    $scope.selectedStatus = trangThai; // Cập nhật trạng thái
+    let url = current_url + '/api/HoaDon/get-all';
 
-        // Nếu có trạng thái, lọc hóa đơn theo trạng thái
+    if (trangThai && trangThai !== 'Tất cả') {
+        url += '?trangThai=' + trangThai;
+    }
+
+    $http.get(url).then(function(response) {
+        $scope.listHoaDon = response.data;
         if (trangThai && trangThai !== 'Tất cả') {
-            url += '?trangThai=' + trangThai;
+            $scope.filteredHoaDon = $scope.listHoaDon.filter(hd => hd.trangThai === trangThai);
+        } else {
+            $scope.filteredHoaDon = $scope.listHoaDon;
         }
-
-        $http({
-            method: 'GET',
-            url: url
-        }).then(function(response) {
-            $scope.listHoaDon = response.data;
-            // Nếu có trạng thái, chỉ hiển thị những hóa đơn có trạng thái tương ứng
-            if (trangThai && trangThai !== 'Tất cả') {
-                $scope.filteredHoaDon = $scope.listHoaDon.filter(function(hd) {
-                    return hd.trangThai === trangThai;
-                });
-                
-                
-            } else {
-                $scope.filteredHoaDon = $scope.listHoaDon;
-                console.log("Danh sách hóa đơn:", $scope.listHoaDon);
-            }
-
-            // Tính tổng tiền các hóa đơn hoàn thành
-        $scope.calculateTotalCompletedBills();
-
-        }).catch(function(error) {
-            console.error('Lỗi khi tải hóa đơn:', error);
-            
-        });
+        $scope.currentPage = 1; // Đặt lại trang hiện tại
+        $scope.calculateTotalCompletedBills(); // Tính tổng tiền
+    }).catch(function(error) {
+        console.error('Lỗi khi tải hóa đơn:', error);
+    });
     };
+
 
 
   

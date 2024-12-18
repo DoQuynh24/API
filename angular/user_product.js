@@ -34,40 +34,40 @@ app.controller('userProductCtrl', function ($scope, $http) {
     };
 
     // Chuẩn bị danh sách sản phẩm theo từng trang và từng hàng
-$scope.preparePaginatedProducts = function () {
-    let paginated = [];
-    let totalItems = $scope.listProduct.length;
+    $scope.preparePaginatedProducts = function () {
+        let paginated = [];
+        let totalItems = $scope.listProduct.length;
 
-    // Chia nhỏ sản phẩm theo trang
-    for (let i = 0; i < totalItems; i += $scope.itemsPerPage) {
-        let pageProducts = $scope.listProduct.slice(i, i + $scope.itemsPerPage);
+        // Chia nhỏ sản phẩm theo trang
+        for (let i = 0; i < totalItems; i += $scope.itemsPerPage) {
+            let pageProducts = $scope.listProduct.slice(i, i + $scope.itemsPerPage);
 
-        // Chia nhỏ mỗi trang thành các hàng (4 sản phẩm một hàng)
-        let rows = [];
-        for (let j = 0; j < pageProducts.length; j += $scope.productsPerRow) {
-            rows.push(pageProducts.slice(j, j + $scope.productsPerRow));
+            // Chia nhỏ mỗi trang thành các hàng (4 sản phẩm một hàng)
+            let rows = [];
+            for (let j = 0; j < pageProducts.length; j += $scope.productsPerRow) {
+                rows.push(pageProducts.slice(j, j + $scope.productsPerRow));
+            }
+            paginated.push(rows);
         }
-        paginated.push(rows);
-    }
-    $scope.paginatedProductsList = paginated;
-};
+        $scope.paginatedProductsList = paginated;
+    };
 
-// Hàm trả về danh sách sản phẩm của trang hiện tại
-$scope.paginatedProducts = function () {
-    return $scope.paginatedProductsList[$scope.currentPage - 1] || [];
-};
+    // Hàm trả về danh sách sản phẩm của trang hiện tại
+    $scope.paginatedProducts = function () {
+        return $scope.paginatedProductsList[$scope.currentPage - 1] || [];
+    };
 
-// Hàm tính tổng số trang
-$scope.totalPages = function () {
-    return Math.ceil($scope.listProduct.length / $scope.itemsPerPage);
-};
+    // Hàm tính tổng số trang
+    $scope.totalPages = function () {
+        return Math.ceil($scope.listProduct.length / $scope.itemsPerPage);
+    };
 
-// Chuyển đến trang cụ thể
-$scope.setPage = function (page) {
-    if (page >= 1 && page <= $scope.totalPages()) {
-        $scope.currentPage = page;
-    }
-};
+    // Chuyển đến trang cụ thể
+    $scope.setPage = function (page) {
+        if (page >= 1 && page <= $scope.totalPages()) {
+            $scope.currentPage = page;
+        }
+    };
 
 
      // Lấy danh sách danh mục từ API
