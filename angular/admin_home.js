@@ -76,7 +76,6 @@ app.controller('homeCtrl',function($scope, $http,)  {
 // Gọi hàm LoadHoaDon
 $scope.LoadHoaDon();
 
-// Hàm tạo biểu đồ dạng miền dập dìu
 // Hàm tạo biểu đồ dạng miền dập dìu từ số liệu hóa đơn
 function createHoaDonChart() {
     var ctx = document.getElementById('hoaDonChart').getContext('2d');

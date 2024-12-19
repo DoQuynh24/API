@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var logoutBtn = document.getElementById("logout-btn");
 
     // // Kiểm tra xem người dùng đã đăng nhập chưa
-    // var hoten = localStorage.getItem("hoten");
+    var perid = localStorage.getItem("perid");
 
     // Mở dropdown khi nhấn vào user-icon
     userIcon.addEventListener('click', function(event) {
@@ -41,7 +41,8 @@ document.addEventListener("DOMContentLoaded", function() {
         logoutBtn.addEventListener('click', function() {
             // Xóa thông tin người dùng khỏi localStorage
             localStorage.removeItem('hoten');
-            
+   
+         
             // Redirect về trang đăng nhập
             window.location.href = '/user/login.html';
         });

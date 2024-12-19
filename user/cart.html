@@ -9,9 +9,14 @@
     <script src="/userJs/cart.js" defer></script>
     <script src="/userJs/main.js" defer></script>
     <script src="/userJs/details.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="icon" href="images/logo.png">
+    <script src="/angular/script.js"></script>
+    <script src="/angular/angular.min.js"></script>
+    <script src="/angular/global.js"></script>
+    <script src="/angular/user_product.js"></script>
 </head>
-<body>
+<body ng-app="AppUserProduct" ng-controller="userProductCtrl" ng-init="loadCart()">
     <div id="main">
         <div id="header">
             <div id="header-top">
@@ -24,7 +29,7 @@
                     <a href="/user/infor.html">Thông tin tài khoản</a>
                     <a href="#" id="logout-btn">Đăng xuất</a>
                 </div>
-
+                <span ng-if="HoTen" style="margin-left: 10px; margin-top: 30px;">{{ HoTen }}</span>
               
             </div>
             <!-- Form đăng nhập -->
@@ -54,8 +59,13 @@
             </div>
         </div>
         <div id="content">
-            <div id="cart-items">
-
+            <div class="cart-item" ng-repeat="item in cart">
+                <img ng-src="{{ getImageUrl(item.image) }}" alt="{{ item.name }}" class="cart-item-image">
+                <div class="cart-item-details">
+                    <h4>{{ item.name }}</h4>
+                    <p>Giá: {{ item.price | number:0 }}₫</p>
+                    <p>Số lượng: {{ item.quantity }}</p>
+                </div>
             </div>
         </div>
        <div id="footer">

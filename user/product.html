@@ -155,8 +155,8 @@
             </div>
             <div id="content-newbag-1" ng-init="LoadProduct()">
                 <!-- Chia hàng với ng-repeat -->
-                <div class="row" ng-repeat="row in paginatedProducts()">
-                    <div class="newbag" ng-repeat="product in row" data-id="{{product.MaSP}}">
+                <div class="row" ng-repeat="row in paginatedProducts()"  >
+                    <div class="newbag" ng-repeat="product in row" data-id="{{product.maSp}}"  ng-click="viewProductDetails(product)">
                         <img class="img-newbag" ng-src="{{ getImageUrl(product.hinhAnh) }}" />
                         <h4 style="text-align: center;">{{product.tenSp}}</h4>
                         <p class="product-price">{{product.giaBan | number:0}}₫</p>
