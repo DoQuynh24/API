@@ -28,10 +28,7 @@
                     <a href="/user/infor.html">Thông tin tài khoản</a>
                     <a href="#" id="logout-btn">Đăng xuất</a>
                 </div>
-
                 <span ng-if="HoTen" style="margin-left: 10px; margin-top: 30px;">{{ HoTen }}</span>
-
-                
                
             </div>
                 <!-- Form đăng nhập -->
@@ -215,28 +212,13 @@
                     <button id="new-arrivalss" style="padding: 15px 80px; margin-top: 40px; cursor: pointer; font-size: 15px; background-color: #FFF;"> Xem thêm...</button>
                 </div>
                
-                <div id="content-top-right">
-                    <div id="details">
-                        <img class="details-img" src="images/1.png" onmouseover="changeImageOnHover(this, 'images/1.1.png')" onmouseout="restoreImage(this)"/>
-                        <p>Miss Dior Flap</p>                          
+                <div id="content-top-right" ng-init="LoadLatestProducts()">
+                    <div id="details" ng-repeat="product in randomProducts"  data-id="{{product.maSp}}" ng-click="viewProductDetails(product)">
+                        <img class="details-img" ng-src="{{getImageUrl(product.hinhAnh)}}" />
+                        <p>{{product.tenSp}}</p>
                     </div>
 
-                    <div id="details">
-                        <img class="details-img" src="images/6.png" onmouseover="changeImageOnHover(this, 'images/6.1.png')" onmouseout="restoreImage(this)"/>
-                        <p>Mini Saddle Bag</p>  
-                                
-                    </div>
-
-                    <div id="details">
-                        <img class="details-img" src="images/5.png" onmouseover="changeImageOnHover(this, 'images/5.1.png')" onmouseout="restoreImage(this)"/>
-                        <p>Black Ribbed Calfskin</p>               
-                    </div>
-
-                    <div id="details">
-                        <img class="details-img" src="images/4.png" onmouseover="changeImageOnHover(this, 'images/4.1.png')" onmouseout="restoreImage(this)"/>
-                        <p>Small Dior Book Tote</p>               
-                    </div>
-                    
+                   
                 </div>
                 
             </div>

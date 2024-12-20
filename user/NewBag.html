@@ -6,8 +6,13 @@
         <link rel="stylesheet" href="../userStyle/newBag.css">
         <script src="/userJs/main.js" defer></script>
         <link rel="icon" href="images/logo.png">
+
+        <script src="/angular/script.js"></script>
+        <script src="/angular/angular.min.js"></script>
+        <script src="/angular/global.js"></script>
+        <script src="/angular/user_login.js"></script>
     </head>
-    <body>
+    <body ng-app="AppLogin" ng-controller="loginCtrl" >
         <div id="main">
             <div id="header">
                 <div id="header-top">
@@ -40,6 +45,7 @@
                     <a href="/user/infor.html">Thông tin tài khoản</a>
                     <a href="#" id="logout-btn">Đăng xuất</a>
                 </div>
+                <span ng-if="HoTen" style="margin-left: 10px; margin-top: 30px;">{{ HoTen }}</span>
 
                 <script>
                 document.addEventListener('DOMContentLoaded', function() {
@@ -109,31 +115,15 @@
                     <p style="color: gray; margin-left: 30px; font-size: 18px;">Trang chủ - Sản phẩm mới của Sully & Bag</p>
                     <img style="width: 96%; margin-left: 30px; margin-top: 20px;" src="images/newbag1.png"/>            
                     <p style="text-align: center; font-size: 17px; margin-top: 20px; color:gray;"> New In</p><br/>
-                    <div id="content-newbag-1">
-                        <div class="newbag" data-id="1">
-                            <img id="bag" class="img-newbag" src="images/1.png" onmouseover="changeImageOnHover(this, 'images/1.1.png')" onmouseout="restoreImage(this)"/>
-                                <h4 style="text-align: center; ">Miss Dior Flap Bag</h4>
-                                <p class="product-price">95.000.000 ₫</p>
-                                
-                        </div>
-                        <div class="newbag" data-id="2">
-                            <img class="img-newbag" src="images/2.png" onmouseover="changeImageOnHover(this, 'images/2.1.png')" onmouseout="restoreImage(this)"/>
-                                <h4 style="text-align: center;">Dior Groove 20 Bag</h4>
-                                <p class="product-price">83.000.000 ₫</p>
-                        </div>
-                        <div class="newbag" data-id="3">
-                            <img class="img-newbag" src="images/5.png" onmouseover="changeImageOnHover(this, 'images/5.1.png')" onmouseout="restoreImage(this)"/>
-                                <h4 style="text-align: center;">Small 30 Montaigne Avenue Top Handle Bag</h4>
-                                <p class="product-price">89.000.000 ₫</p>
-                        </div>
-                        <div class="newbag" data-id="4">
-                            <img class="img-newbag" src="images/new1.png" onmouseover="changeImageOnHover(this, 'images/new2.png')" onmouseout="restoreImage(this)"/>
-                                <h4 style="text-align: center;">Medium Dior Toujours Bag</h4>
-                                <p class="product-price">100.000.000 ₫</p>
+                    <div id="content-newbag-1" ng-init="LoadLatestProducts()">
+                        <div class="newbag" ng-repeat="product in randomProducts" data-id="{{product.maSp}}" ng-click="viewProductDetails(product)">
+                            <img class="img-newbag" ng-src="{{getImageUrl(product.hinhAnh)}}" />
+                            <h4 style="text-align: center;">{{product.tenSp}}</h4>
+                            <p class="product-price">{{product.giaBan | currency:'₫':0}}</p>
                         </div>
                     </div>
                     <br/><br/> 
-                    <div id="content-newbag-1">
+                    <div id="content-newbag-1" >
                         <div class="newbag" data-id="1">
                             <img id="bag" class="img-newbag" src="images/1.png" onmouseover="changeImageOnHover(this, 'images/1.1.png')" onmouseout="restoreImage(this)"/>
                                 <h4 style="text-align: center; ">Miss Dior Flap Bag</h4>
@@ -164,29 +154,14 @@
                     <img style="width: 96%; margin-left: 30px; margin-top: 20px;" src="images/newbag.png"/>
                     <p style="text-align: center; font-size: 17px; margin-top: 20px; color:gray;"> New Collection</p><br/>
                     <!-- Nội dung sản phẩm cho New Collection -->
-                    <div id="content-newbag-1">
-                        <div class="newbag" data-id="1">
-                            <img id="bag" class="img-newbag" src="images/1.png" onmouseover="changeImageOnHover(this, 'images/1.1.png')" onmouseout="restoreImage(this)"/>
-                                <h4 style="text-align: center; ">Miss Dior Flap Bag</h4>
-                                <p class="product-price">95.000.000 ₫</p>
-                                
+                    <div id="content-newbag-1" ng-init="LoadLatestProducts()">
+                        <div class="newbag" ng-repeat="product in randomProducts" data-id="{{product.maSp}}" ng-click="viewProductDetails(product)">
+                            <img class="img-newbag" ng-src="{{getImageUrl(product.hinhAnh)}}" />
+                            <h4 style="text-align: center;">{{product.tenSp}}</h4>
+                            <p class="product-price">{{product.giaBan | currency:'₫':0}}</p>
                         </div>
-                        <div class="newbag" data-id="2">
-                            <img class="img-newbag" src="images/2.png" onmouseover="changeImageOnHover(this, 'images/2.1.png')" onmouseout="restoreImage(this)"/>
-                                <h4 style="text-align: center;">Dior Groove 20 Bag</h4>
-                                <p class="product-price">83.000.000 ₫</p>
-                        </div>
-                        <div class="newbag" data-id="3">
-                            <img class="img-newbag" src="images/5.png" onmouseover="changeImageOnHover(this, 'images/5.1.png')" onmouseout="restoreImage(this)"/>
-                                <h4 style="text-align: center;">Small 30 Montaigne Avenue Top Handle Bag</h4>
-                                <p class="product-price">89.000.000 ₫</p>
-                        </div>
-                        <div class="newbag" data-id="4">
-                            <img class="img-newbag" src="images/new1.png" onmouseover="changeImageOnHover(this, 'images/new2.png')" onmouseout="restoreImage(this)"/>
-                                <h4 style="text-align: center;">Medium Dior Toujours Bag</h4>
-                                <p class="product-price">100.000.000 ₫</p>
-                        </div>
-                    </div> <br/><br/>
+                    </div> 
+                 <br/><br/>
                     <div id="content-newbag-2">
                         <div id="content-newbag-2left">
                             <img style="width:80%; height: 500px; margin-left: 20px;" src="images/new4.png"/>

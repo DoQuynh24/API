@@ -13,9 +13,9 @@
     <script src="/angular/script.js"></script>
     <script src="/angular/angular.min.js"></script>
     <script src="/angular/global.js"></script>
-    <script src="/angular/user_product.js"></script>
+    <script src="/angular/user_login.js"></script>
 </head>
-<body ng-app="AppUserProduct" ng-controller="userProductCtrl" >
+<body ng-app="AppLogin" ng-controller="loginCtrl" >
     <div id="main">
         <div id="header">
             <div id="header-top">
@@ -45,20 +45,9 @@
                     <a href="#" id="logout-btn">Đăng xuất</a>
                 </div>
 
-                <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    var userName = localStorage.getItem('userName' );
-                    if (userName) {
-                        var userNameDisplay = document.createElement('span');
-                        userNameDisplay.textContent = userName;
-                        userNameDisplay.style.marginLeft = '10px'; 
-                        userNameDisplay.style.marginTop = '30px'; 
-                        var userIcon = document.getElementById('user-icon');
-                        userIcon.parentNode.appendChild(userNameDisplay);
-                    }
-                });
-             
-                </script>
+                <span ng-if="HoTen" style="margin-left: 10px; margin-top: 30px;">{{ HoTen }}</span>
+
+               
             </div>
                 <!-- Form đăng nhập -->
                 <div id="login-form" class="login-form">

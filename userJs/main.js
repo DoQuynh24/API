@@ -17,8 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var userDropdown = document.getElementById("user-dropdown");
     var logoutBtn = document.getElementById("logout-btn");
 
-    // // Kiểm tra xem người dùng đã đăng nhập chưa
-    var perid = localStorage.getItem("perid");
+
 
     // Mở dropdown khi nhấn vào user-icon
     userIcon.addEventListener('click', function(event) {

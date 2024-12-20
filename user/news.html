@@ -8,8 +8,12 @@
     <link rel="stylesheet" href="../userStyle/news.css">
     <script src="/userJs/main.js" defer></script>
     <link rel="icon" href="images/logo.png">
+    <script src="/angular/script.js"></script>
+    <script src="/angular/angular.min.js"></script>
+    <script src="/angular/global.js"></script>
+    <script src="/angular/user_login.js"></script>
 </head>
-<body>
+<body ng-app="AppLogin" ng-controller="loginCtrl" >
     <div id="main">
         <div id="header">
             <div id="header-top">
@@ -29,6 +33,7 @@
                     <a href="/user/infor.html">Thông tin tài khoản</a>
                     <a href="#" id="logout-btn">Đăng xuất</a>
                 </div>
+                <span ng-if="HoTen" style="margin-left: 10px; margin-top: 30px;">{{ HoTen }}</span>
 
                 <script>
                 document.addEventListener('DOMContentLoaded', function() {

@@ -7,9 +7,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" href="../userStyle/shop.css">
     <script src="/userJs/main.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="icon" href="images/logo.png">
+    <script src="/angular/script.js"></script>
+    <script src="/angular/angular.min.js"></script>
+    <script src="/angular/global.js"></script>
+    <script src="/angular/user_login.js"></script>
 </head>
-<body>
+<body ng-app="AppLogin" ng-controller="loginCtrl" >
     <div id="main">
         <div id="header">
             <div id="header-top">
@@ -25,7 +30,14 @@
                 <input class="search" type="text" placeholder=" 🔍Tìm kiếm sản phẩm"> 
                 <img class="icon" src="images/heart.png"/>
                 <img id="cart" class="icon" src="images/bag.png"/>
-                <img id="user-icon" class="icon" src="images/use.png"/>
+                <img id="user-icon" style="width:30px; height:30px; margin-top: 20px; cursor: pointer;" src="images/use.png"/>
+                <div id="user-dropdown" class="dropdown-content">
+                    <a href="/user/infor.html">Thông tin tài khoản</a>
+                    <a href="#" id="logout-btn">Đăng xuất</a>
+                </div>
+
+                <span ng-if="HoTen" style="margin-left: 10px; margin-top: 30px;">{{ HoTen }}</span>
+
             </div>
                 <!-- Form đăng nhập -->
                 <div id="login-form" class="login-form">
@@ -54,7 +66,7 @@
                 </div>
                 <hr/>
             </div>
-            <p style="color: gray; margin-left: 30px;">Trang chủ - Cửa hàng</p><br/><br/>
+            <p style="color: gray; margin-left: 30px;">Trang chủ - Cửa hàng</p><br/>
             <div id="content">
                 <div id="content-left">
                     <p style="font-size: 20px;font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Tìm cửa hàng Sully & Bag gần bạn</p>

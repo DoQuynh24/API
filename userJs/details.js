@@ -62,13 +62,17 @@ function toggleContent(tabId) {
 }
 
 
-// Hàm để toggle xem thêm mô tả
-function toggleContent(type) {
+
+function toggleDescription() {
     var details = document.getElementById('description-details');
-    if (type === 'description') {
-        details.style.display = details.style.display === 'none' ? 'block' : 'none';
-        document.getElementById('description-toggle').textContent = details.style.display === 'block' ? 'See less' : 'See more';
-    }
+    details.style.display = details.style.display === 'none' ? 'block' : 'none';
+    document.getElementById('description-toggle').textContent = details.style.display === 'block' ? 'See less' : 'See more';
+}
+
+function togglePreserve() {
+    var details = document.getElementById('preserve-details');
+    details.style.display = details.style.display === 'none' ? 'block' : 'none';
+    document.getElementById('preserve-toggle').textContent = details.style.display === 'block' ? 'See less' : 'See more';
 }
 document.getElementById("add-to-cart-btn").addEventListener("click", function() {
     // Lấy thông tin người dùng đăng nhập
